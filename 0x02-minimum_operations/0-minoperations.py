@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Module for calculating the minimum number of operations
     required needed to reach n characters."""
 
