@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Module for calculating the minimum number of operations required needed to reach n characters."""
+"""Module for calculating the minimum number of operations
+    required needed to reach n characters."""
 
 
 def minOperations(n):
@@ -25,7 +26,6 @@ def minOperations(n):
             n = n // divisor
         divisor += 1
 
-        # Optimization: if divisor^2 > n, then n is prime
         if divisor * divisor > n:
             if n > 1:
                 operations += n
