@@ -26,18 +26,28 @@ def extract_input(line: str) -> LogInfo:
         r'\s*(?P<status_code>\S+)',
         r'\s*(?P<file_size>\d+)'
     )
+
     info: LogInfo = {
         'status_code': '0',
-        'file_size': 0,
+        'file_size': 0
     }
+
     log_fmt = '{}\\-{}{}{}{}\\s*'.format(
-        pattern[0], pattern[1], pattern[2], pattern[3], pattern[4])
+        pattern[0],
+        pattern[1],
+        pattern[2],
+        pattern[3],
+        pattern[4]
+    )
+
     resp_match: Match[str] | None = re.fullmatch(log_fmt, line)
+
     if resp_match is not None:
         status_code = resp_match.group('status_code')
         file_size = int(resp_match.group('file_size'))
         info['status_code'] = status_code
         info['file_size'] = file_size
+
     return info
 
 
@@ -50,13 +60,15 @@ def print_statistics(total_file_size: int,
         status_codes_stats (Dict[str, int]): Dictionary of status code counts.
     """
     print('File size: {:d}'.format(total_file_size), flush=True)
+
     for status_code in sorted(status_codes_stats.keys()):
         num = status_codes_stats.get(status_code, 0)
         if num > 0:
             print('{:s}: {:d}'.format(status_code, num), flush=True)
 
 
-def update_metrics(line: str, total_file_size: int,
+def update_metrics(line: str,
+                   total_file_size: int,
                    status_codes_stats: Dict[str, int]) -> int:
     """Updates the metrics from a given HTTP request log.
 
@@ -70,8 +82,10 @@ def update_metrics(line: str, total_file_size: int,
     """
     line_info = extract_input(line)
     status_code = line_info.get('status_code', '0')
+
     if status_code in status_codes_stats.keys():
         status_codes_stats[status_code] += 1
+
     return total_file_size + line_info['file_size']
 
 
@@ -91,19 +105,22 @@ def run() -> None:
         '403': 0,
         '404': 0,
         '405': 0,
-        '500': 0,
+        '500': 0
     }
+
     try:
         while True:
             line = input()
             total_file_size = update_metrics(
                 line,
                 total_file_size,
-                status_codes_stats,
+                status_codes_stats
             )
             line_num += 1
+
             if line_num % 10 == 0:
                 print_statistics(total_file_size, status_codes_stats)
+
     except (KeyboardInterrupt, EOFError):
         print_statistics(total_file_size, status_codes_stats)
 
