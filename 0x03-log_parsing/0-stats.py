@@ -71,7 +71,7 @@ def run() -> None:
     """
     line_num = 0
     total_file_size = 0
-    status_codes_stats: Dict[str, int] = {
+    status_codes_stats = {
         '200': 0,
         '301': 0,
         '400': 0,
