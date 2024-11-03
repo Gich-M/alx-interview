@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Module to determine a valid UTF-8 encoding."""
+"""
+Module to determine a valid UTF-8 encoding.
+"""
 
 
 def validUTF8(data):
