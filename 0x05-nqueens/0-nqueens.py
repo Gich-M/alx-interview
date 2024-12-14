@@ -46,7 +46,7 @@ def solve_nqueens(N):
 
     def solve_util(board, col, solutions):
         """
-        Recursive utility function to solve N Queens using backtracking
+        Recursive util function to solve N Queens using backtracking
 
         Time Complexity: O(N!)
         Space Complexity: O(N^2)
@@ -99,3 +99,6 @@ def main():
     solutions = solve_nqueens(N)
     for solution in solutions:
         print(solution)
+
+if __name__ == "__main__":
+    main()
