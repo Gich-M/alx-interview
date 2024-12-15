@@ -6,6 +6,12 @@ def rotate_2d_matrix(matrix):
     """
     Rotates an m by n 2D matrix in place.
     matrix - The input matrix to rotate.
+    1. Transpose the matrix.
+    2. Reverse each row.
+    3. Swap elements from the start and end of the row.
+
+    Time complexity: O(n^2)
+    Space complexity: O(1)
     """
     n = len(matrix)
 
