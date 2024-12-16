@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Module Prime Game."""
 def is_prime(n):
     """Check if a number is prime."""
     if n < 2:
