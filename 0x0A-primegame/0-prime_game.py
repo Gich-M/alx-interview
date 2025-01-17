@@ -1,54 +1,30 @@
 #!/usr/bin/python3
-"""Module Prime Game."""
-def is_prime(n):
-    """Check if a number is prime."""
-    if n < 2:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
+"""Prime game module.
+"""
 
-def get_primes(n):
-    """Get all primes up to and including n."""
-    return [x for x in range(2, n + 1) if is_prime(x)]
-
-def play_game(n):
-    """Simulate a single round of the Prime Game.
-    Returns True if Maria wins, False if Ben wins."""
-    primes = get_primes(n)
-
-    maria_turn = True
-    turn_count = 0
-
-    while primes:
-        turn_count += 1
-
-        curr_prime = primes[0]
-
-        primes = [p for p in primes if p % curr_prime != 0]
-
-        maria_turn = not maria_turn
-
-    result = not maria_turn
-    return result
 
 def isWinner(x, nums):
-    """Determine the overall winner of x rounds."""
-    if not nums or x == 0:
+    """Determines the winner of a prime game session with `x` rounds.
+    """
+    if x < 1 or not nums:
         return None
 
-    maria_wins = 0
-    ben_wins = 0
+    marias_wins, bens_wins = 0, 0
+    # generate primes with a limit of the maximum number in nums
+    n = max(nums)
+    primes = [True for _ in range(1, n + 1, 1)]
+    primes[0] = False
+    for i, is_prime in enumerate(primes, 1):
+        if i == 1 or not is_prime:
+            continue
+        for j in range(i + i, n + 1, i):
+            primes[j - 1] = False
 
-    for n in nums:
-        if play_game(n):
-            maria_wins += 1
-        else:
-            ben_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    return None
+    # filter the number of primes less than n in nums for each round
+    for _, n in zip(range(x), nums):
+        primes_count = len(list(filter(lambda x: x, primes[0: n])))
+        bens_wins += primes_count % 2 == 0
+        marias_wins += primes_count % 2 == 1
+    if marias_wins == bens_wins:
+        return None
+    return 'Maria' if marias_wins > bens_wins else 'Ben'
