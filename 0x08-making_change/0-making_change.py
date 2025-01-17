@@ -6,11 +6,11 @@
 def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given total
-    
+
     Args:
         coins:  List of coin values available
         total: Target amount to make change for
-        
+
     Returns:
         int: Minimum number of coins needed, -1 if total cannot be met
     """
